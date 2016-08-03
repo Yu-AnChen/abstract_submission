@@ -1,0 +1,432 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import 'https://fonts.googleapis.com/css?family=Dosis:400|Libre+Baskerville|Roboto:300,500';
+
+// @import "compass/reset";
+@import "compass";
+@import "compass/css3";
+@import "compass/css3/transition";
+@import "compass/css3/user-interface";
+@import "_bootstrap-variables";
+
+$base-font-size: 16px;
+$base-line-height: 24px;
+@include establish-baseline;
+
+// @include font-face("Dosis", font-files("dosis-v6-latin/dosis-v6-latin-300.ttf", "dosis-v6-latin/dosis-v6-latin-300.woff", "dosis-v6-latin/dosis-v6-latin-300.woff2", "dosis-v6-latin/dosis-v6-latin-300.svg", "dosis-v6-latin/dosis-v6-latin-300.eot"));
+
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+  // For Google Chrome
+  &::-webkit-scrollbar {
+      width:  $size;
+      height: $size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background: $foreground-color;
+  }
+
+  &::-webkit-scrollbar-track {
+      background: $background-color;
+  }
+
+  // For Internet Explorer
+  
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  
+}
+
+
+$font-stack-serif:      'Libre Baskerville', serif;
+$font-stack-heading:    'Dosis', sans-serif;
+$font-stack-sans-serif: 'Roboto', sans-serif;
+$abs_print-font-size: 11px;
+$abs_form-font-size: 0.875rem;
+
+
+$base-color: #111;
+$base-color-i: #fff;
+$c10: scale-lightness($base-color, 10);
+$c20: scale-lightness($base-color, 20);
+$c50: scale-lightness($base-color, 50);
+$c70: scale-lightness($base-color, 70);
+$c90: scale-lightness($base-color, 90);
+$c95: scale-lightness($base-color, 95);
+$border-l-bullet: solid $c10 5px;
+$indent-base: 1rem;
+$base-color-warning: #cc0000;
+$cw90: scale-lightness($base-color-warning, 90);
+* {
+	@include input-placeholder {
+		color: $c70;
+		// font-style: italic;
+	}
+}
+
+html { 
+	@media screen and (max-width: 480px) { background-color: red; font-size: $base-font-size/1.2; }
+}
+
+body {
+	font-family: $font-stack-sans-serif;
+	font-size: 1rem;
+	// @media screen and (max-width: 480px) { background-color: red; font-size: $base-font-size/2; }
+  	h1 { font-family: $font-stack-heading; margin-bottom: 1rem;}
+  	p { 
+  		// font-family: $font-family-serif; 
+  		overflow: hidden; }
+  	// color: $gray-darker;
+} 
+
+// .abs_form
+.abs_form {
+	font-size: $abs_form-font-size;
+}
+.form_bullet {
+	border-left: $border-l-bullet;
+	padding-left: $indent-base;
+	display: block;
+	margin-top: 2rem;
+}
+.form_indent {
+	padding-left: 2 * $indent-base;
+}
+
+.input-base {
+	font-family: $font-stack-sans-serif;
+	font-weight: 300;
+	text-align: right;
+	width: 100%;
+	border: none;
+	// outline: none;
+	@include reset-focus;
+	border-bottom: solid $c90 3px;
+	@include transition-property(border);
+	@include transition-duration(0.5s);
+	&:focus {
+		border-bottom: solid $c10 3px;
+	}
+}
+.abs_form span {
+	font-family: $font-stack-serif;
+}
+.abs_form input[type="text"] {
+	@extend .input-base;
+	display: block;
+	font-size: 1.4em;
+	margin: 1rem 0 1rem 1rem;
+	padding-right: 1.5rem;
+}
+
+.text-affil {
+	@extend .input-base;
+	font-size: 1.1em;
+	margin: 1rem 0 1rem 2rem;
+	padding-right: 2.5rem;
+	height: 4rem;
+	background-color: $c90;
+}
+textarea[name="abs_content"] {
+	@extend .input-base;
+	font-size: 1.1em;
+	line-height: 1.75em;
+	letter-spacing: 0.02em;
+	text-align: left;
+	margin: 1rem 0;
+	padding: 0.5rem 0.75rem;
+	height: 35rem;
+	background-color: $c95;
+}
+
+form button {
+	float: right;
+	font-family: $font-stack-sans-serif;
+	font-weight: 500;
+	@include transition-property(all);
+	@include transition-duration(0.3s);
+}
+
+.btn-add_affil {
+	background-color: $c20;
+	border-color: $c70;
+	@include link-colors(scale-lightness(white, -10), white, white, scale-lightness(white, -10), white);
+	&:hover { background-color: $c10 }
+	&:active { background-color: $c10 }
+	&:visited { background-color: $c20 }
+	&:focus { background-color: $c10; text-decoration: underline; outline-color: $c70; }
+}
+.btn-add_author {
+	background-color: white;
+	border-color: $base-color;
+	float: none;
+    display: inline-block;
+    margin: 2em auto;
+    @include link-colors(scale-lightness($base-color, 10), $base-color, $base-color, scale-lightness($base-color, 10), $base-color);
+	&:hover { background-color: white }
+	&:active { background-color: white }
+	&:visited { background-color: white }
+	&:focus { background-color: white; text-decoration: underline; outline-color: $c70; }
+}
+
+/* for the printing area 
+all measurement are based on 
+$abs_print-font-size variable,
+so the ratio will mimic letter-size
+real print! */
+#wrapper_abs_print {
+	// the col class, for padding
+	padding: 2em 2em 1em 2em;
+}
+#inner_wrapper_abs_print {
+	// for the x-scroll
+	overflow-x: auto;
+	// @include scrollbars(.5em, $c20);
+	width: 100%;
+}
+#inner_inner_wrapper_abs_print {
+	// for paper border
+	width: $abs_print-font-size * 557/11 + 10;
+	height: $abs_print-font-size * 736/11 + 10;
+	border: solid $c70 2px;
+	content: " ";
+	margin: 0 auto;
+}
+.abs_print *:not(sup) {
+	font-family: Arial;
+	font-size: $abs_print-font-size;
+	line-height: $abs_print-font-size * 1.8;
+}
+
+
+
+#abs_print {
+	border: solid white $abs_print-font-size * 4;
+	width: $abs_print-font-size * 557/11;
+	height: $abs_print-font-size * 736/11;
+	overflow: hidden;
+	h4 { // Title
+		font-weight: 600;
+		margin-bottom: 2*$abs_print-font-size;
+		// line-height: 1.5;
+	}
+	.wrapper-author { // Authors
+		font-weight: 400;
+		margin-bottom: 0;
+		// line-height: 1.25;
+	}
+	.wrapper-affil { // Affils
+		// @include reset-font;
+		font-size: $abs_print-font-size * 10/11;
+		// line-height: 1
+	}
+	h6 { // Keywords
+		// @include reset-font;
+		font-size: $abs_print-font-size * 10/11;
+		font-style: italic;
+		font-weight: 600; 
+		margin-top: 2*$abs_print-font-size;
+		margin-bottom: $abs_print-font-size;
+		// line-height: 1.25;
+	}
+	p { line-height: $abs_print-font-size * 1.8; text-align: justify; margin-bottom: 0.5em; }
+
+	sup { vertical-align: super; position: initial; } 
+}
+
+/* SignUp Form 
+*/
+.at-form {
+	font-size: 1rem;
+	max-width: 500px;
+}
+.at-title h3 { 
+	font-family: $font-stack-serif; font-weight: 400; font-size: 1.20em; text-align: left;
+
+	> span {
+		color: $c50;
+		display: block;
+		font-size: 75%;
+		padding-top: 0.75em;
+	}	
+
+}
+.at-input {
+	// font-family: $font-stack-sans-serif;
+	padding: $indent-base 0 2*$indent-base 1.5*$indent-base;
+	// max-width: 500px;
+	> label { font-weight: 300; font-size: 1em;}
+	> input { 
+		@extend .input-base;
+		font-size: 1.2em;
+	}
+}
+#at-pwd-form .at-pwd-link  {
+	font-weight: 500;
+	// max-width: 500px;
+	text-align: right;
+}
+.at-signup-link, .at-signin-link {
+	padding-top: 1em;
+	// max-width: 500px;
+	text-align: center;
+}
+#at-btn { display: none; }
+.has-error { // error message on sign up page
+	> span { float: right; padding-top: 0.2em; color: $base-color-warning;}
+	> input { border-color: $cw90; }
+}
+.at-error{ // error message on sign in page
+	// text-align: center;
+}
+.btn-log_out {
+	font-family: $font-stack-sans-serif; color: #fff; 
+	background-color: $c10; letter-spacing: 0.05em;
+	@include reset-focus;
+	@include border-radius(0px);
+	@include link-colors($base-color-i, $base-color-i, $base-color-i, $base-color-i, $base-color-i);
+
+}
+/* modal for not logged in 
+users on abs_form page */
+.modal-backdrop {
+	background-color: azure;
+}
+/* logout dropdown 
+on the top right corner */
+#logged_in_user {
+	position: fixed; top: 0; right: 1rem;
+	.dropdown-menu { font-family: $font-stack-sans-serif; right:0; min-width: 140px; text-align: center;}
+}
+/* Root page
+Guidlines */
+.abs-root {
+	font-size: 1rem;
+	h3 { font-family: $font-stack-serif; font-weight: 400; font-size: 1.20em; }
+	ol { font-weight: 300; font-size: 1.2em; padding-left: 2.75*$indent-base; padding-top: 0.5em;}
+}
+.abs-root ol > li {
+	padding: 0.2em 0;
+}
+/* Next and back link
+*/
+.pagination {
+	font-size: 1.5rem; font-family: $font-stack-serif; font-weight: 400;
+	// position: absolute;	right: 2rem; bottom: 4rem;
+	float: right;
+}
+.pagearrow-wrapper {
+	position: relative;
+	overflow: hidden;
+	// width: 4em;
+	height: 2em;
+	// border: 1px solid black;
+	display: inline-block;
+	float: left;
+	margin: 0 0.25em;
+    @include link-colors(scale-lightness($base-color, 50), $base-color, $base-color, scale-lightness($base-color, 50), $base-color);
+    @include transition-property(all);
+	@include transition-duration(0.5s);
+}
+.arrow-line {
+	width: 50px;
+	height: 0px;
+	border-bottom: 2px solid;
+	position: absolute;
+	top: 36px;
+	@media screen and (max-width: 480px) { top: 30px; }
+	
+}
+.arrow-line-left {
+	right: 0;
+}
+.arrow-line-right {
+	left: 0;
+}
+.arrow {
+	position: absolute;
+	// top: 1.375em;
+	top: 33px;
+	@media screen and (max-width: 480px) { top: 27px; }
+	width: 0;
+	height: 0;
+	border-top: 4px solid transparent;
+  	border-bottom: 4px solid transparent;
+}
+.arrow-right {
+	left: 50px;
+	border-left: 8px solid ;
+}
+.arrow-left {
+	border-right: 8px solid ;
+	right: 50px;
+}
+.cover-slide {
+	position: absolute;
+	top: 1.1em;
+	// left: 0px;
+	width: 100px;
+	height: 100px;
+	background: white;
+	// border: solid 1px;
+	@include transition-property(all);
+	@include transition-duration(0.5s);
+}
+.slide-left {
+	@include transition-property(all);
+	@include transition-duration(0.5s);
+	right: 0px;
+}
+.slide-right {
+	@include transition-property(all);
+	@include transition-duration(0.5s);
+	left: 0px;
+}
+
+.pagearrow-wrapper:hover {
+	text-decoration: none;
+	.slide-left {
+		@include transition-property(all);
+		@include transition-duration(0.5s);
+		right: 100px;
+	}
+	.slide-right {
+		@include transition-property(all);
+		@include transition-duration(0.5s);
+		left: 100px;
+	}
+}
+hr { clear: both; }
+
+#hidden-next { display: inline-block; display: none; }
+#submit-wrapper { display: inline-block; float: left; margin: 0 0.25em;
+	input {
+		outline: none;
+		padding: 0;
+		border: none;
+		background: none;
+		z-index: 1;
+	}
+}
+#submit-animate {
+	// display: inline-block; 
+	width: 10px; 
+	height: 10px; 
+	// background: red; 
+	position: relative;
+	border-radius:100%;
+	border: 2px solid black;
+	top: -24px;
+	// left: 50px;
+	margin: 0 auto;
+	opacity: 0;
+	z-index: -1;
+}
+#overflown-warning {
+	display: none;
+	color: $base-color-warning;
+	text-align: center;
+}

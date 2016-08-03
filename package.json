@@ -1,0 +1,10 @@
+{
+  "name": "4_abstract_submit",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "meteor-node-stubs": "~0.2.0"
+  }
+}

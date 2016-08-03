@@ -1,0 +1,206 @@
+<!-- <body>
+
+  {{> login_modal}}
+  {{> user_form}}
+
+</body> -->
+
+<!-- <template>
+  <div>
+    
+  </div>
+</template> -->
+<template name="main">
+  <div class="container-fluid">
+  <div class="row">
+    <h1 class="col-xs-12 text-center">TTBA Symposium<br /><small>Abstract Submission for Poster Session</small></h1>    
+  </div>
+  <!-- {{> navigation}} -->
+  {{> yield}}
+  {{> user_dropdown}}
+  <hr />
+  <p>Texas Taiwanese Biotechnology Association</p>
+  </div>
+</template>
+
+
+<template name="navigation">
+  <div>
+    <ul>
+      <li><a href="{{pathFor route='abs_root'}}" title="">Step 1</a></li>
+      <li><a href="{{pathFor route='signup'}}" title="">Step 2</a></li>
+      <li><a href="{{pathFor route='abs_submit_form'}}" title="">Step 3</a></li>
+      <li><a href="{{pathFor route='confirm_print'}}" title="">Step 4</a></li>
+    </ul>
+  </div>
+</template>
+
+<template name="login_modal">
+  <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          {{> atForm defaultState='signUp'}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="accounts_form">
+  {{> atForm}}
+</template>
+
+<template name="user_form">
+  
+    <div class="row">
+      <!-- <h1 class="col-xs-12 text-center">Abstract Submission for Poster Session</h1> -->
+      
+      <form class="col-md-5 abs_form">
+
+        <p><span class="form_bullet">Abstract Title:</span> <input type="text" class="js-abs_title js-hide-next" name="abs_title" placeholder='The Title of the Abstract'/></p>
+
+        <p>
+          <span class="form_bullet">Presenting Author:</span> <input class="js-auth js-hide-next" type="text" name="author_1"/> 
+          <span class="form_indent">Affiliation:</span>
+          <textarea class="text-affil js-affil js-hide-next" name="author_affil_1_1"></textarea>
+          <button type="button" class="js-add_affil btn btn-add_affil">Add Affiliation</button>
+        </p>
+        
+        <p>
+          <span class="form_bullet">Corresponding Author:</span> <input class="js-auth js-hide-next" type="text" name="author_99"/>
+          <span class="form_indent">Affiliation:</span>
+          <textarea class="text-affil js-affil js-hide-next" name="author_affil_99_1"></textarea>
+          <button type="button" class="js-add_affil btn btn-add_affil">Add Affiliation</button>
+        </p>
+        
+        <p class="text-center">
+        <button type="button" class="js-add_author btn btn-add_author">Add Another Author</button>
+        </p>
+        
+        <p>
+          <span class="form_bullet">Keywords:</span> <input class="js-keywords js-hide-next" type="text" name="abs_keywords" placeholder='Keywords, seperated by ", "'/>
+        </p>
+
+        <p>
+          <span class="form_bullet">Abstract:</span>
+          <textarea name="abs_content" class="js-abs_content js-hide-next"></textarea>
+        </p>
+        <br />
+        
+      {{#if currentUser}}
+        <!-- <input id="#sumbit_btn" type="submit" class="js-submit"/> -->
+        <!-- <button type="button" class="btn btn-success">save</button> -->
+      {{/if}}
+      </form>
+      <!-- <div class="col-md-1">  </div> -->
+      <div id="wrapper_abs_print" class="col-md-7 ">
+        <div id="inner_wrapper_abs_print">
+        <div id="inner_inner_wrapper_abs_print">
+        <div id="abs_print" class="abs_print">
+            {{> print_out}}
+        </div>
+        </div>
+        </div>
+      </div>
+      <div id="overflown-warning" class="col-md-7" >
+        <p>Your content is more than single page, please trim it.</p>
+      </div>
+ <!--      <div class="col-md-5">
+        <a href="{{pathFor route='abs_root'}}" title="">&lt;</a>
+        <input type="submit" class="js-preview"/>
+        <a href="{{pathFor route='confirm_print'}}" title="">&gt;</a>
+        
+      </div> -->  
+    </div>
+    <div class="pagination">
+      <a href="{{pathFor route='abs_root'}}" title="" class="pagearrow-wrapper">
+        BACK
+        <div class="arrow-line arrow-line-left"></div>
+        <div class="arrow arrow-left"></div>
+        <div class="cover-slide slide-left"></div>
+      </a>
+      {{#if currentUser}}
+      <span class="pagearrow-wrapper">&bull;</span>
+      <div id="submit-wrapper">
+        
+        <input type="submit" class="js-preview" Value="Preview"/>
+        <div id="submit-animate"></div>
+
+      </div>
+      
+
+      <div id="hidden-next">    
+        <span class="pagearrow-wrapper">&bull;</span>
+        <a href="{{pathFor route='confirm_print'}}" title="" class="pagearrow-wrapper">
+          NEXT
+          <div class="arrow-line arrow-line-right"></div>
+          <div class="arrow arrow-right"></div>
+          <div class="cover-slide slide-right"></div>
+        </a>
+      </div>
+      {{/if}}
+    </div>
+    {{#if currentUser}}
+    {{else}}
+    <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel" data-backdrop="static">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            Please <a href="{{pathFor route='signup'}}" title="">sign up</a> or <a href="{{pathFor route='signin'}}" title="">sign in</a> to begin.
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+</template>
+
+
+<template  name="print_out">
+{{#each abs_printout}} 
+  {{#if completeSubmit}}
+    <h4 class="text-capitalize">completeSubmit is true</h4> 
+  {{else}}
+    <h4 class="text-capitalize">completeSubmit is false</h4> 
+  {{/if}}
+  <h4 class="text-capitalize">{{completeSubmit}}</h4>   
+  <h4 class="text-capitalize">{{title}}</h4>
+  <div class="wrapper-author">{{{authAffilForm}}}</div>
+  <div class="wrapper-affil">{{{affilForm}}}</div>
+  <h6>Keyowrds: {{keywords}}</h6>
+  <!-- <h6>email: {{email}}</h6> -->
+  {{{absContentMD}}} 
+{{/each}}
+</template>
+
+<template name="confirm_print">
+  <div id="wrapper_abs_print" class="col-md-12 ">
+    <div id="inner_wrapper_abs_print">
+    <div id="inner_inner_wrapper_abs_print">
+    <div id="abs_print" class="abs_print">
+    {{> print_out}}
+    </div>
+    </div>
+    </div>
+  </div>
+  <div id="overflown-warning" class="col-md-12" >
+    <p>Your content is more than single page, please trim it.</p>
+  </div>
+</template>
+
+<template name="user_dropdown">  
+  {{#if currentUser}}
+
+      <div id="logged_in_user" class="dropdown dropdown-toggle">
+        <button class="btn btn-log_out dropdown-toggle" type="button" data-toggle="dropdown">
+        {{currentUserEmail}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li> <a id="log_out" href="" title="">Log Out</a> </li>
+        </ul>        
+      </div>
+
+  {{/if}}
+</template>

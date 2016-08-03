@@ -1,0 +1,59 @@
+<template name="atFormTtba2016">
+  {{#unless hide}}
+    <div class="at-form">
+      {{#if showTitle}}
+        {{> atTitle}}
+      {{/if}}
+      {{#if showOauthServices}}
+        {{> atOauth}}
+      {{/if}}
+      {{#if showServicesSeparator}}
+        {{> atSep}}
+      {{/if}}
+      {{#if showError}}
+        {{> atError}}
+      {{/if}}
+      {{#if showResult}}
+        {{> atResult}}
+      {{/if}}
+      {{#if showMessage}}
+        {{> atMessage}}
+      {{/if}}
+      {{#if showPwdForm}}
+        {{> atPwdForm}}
+      {{/if}}
+      {{#if showTermsLink}}
+        {{> atTermsLink}}
+      {{/if}}
+      {{#if showSignInLink}}
+        {{> atSigninLink}}
+      {{/if}}
+      {{#if showSignUpLink}}
+        {{> atSignupLink}}
+      {{/if}}
+      {{#if showResendVerificationEmailLink}}
+        {{> atResendVerificationEmailLink}}
+      {{/if}}
+    </div>
+  {{/unless}}
+  {{> atFormPagination}}
+</template>
+
+
+<template name="atFormPagination">
+  <div class="pagination">
+    <a href="{{pathFor route='abs_root'}}" title="" class="pagearrow-wrapper">
+      BACK
+      <div class="arrow-line arrow-line-left"></div>
+      <div class="arrow arrow-left"></div>
+      <div class="cover-slide slide-left"></div>
+    </a>
+    <span class="pagearrow-wrapper">&bull;</span>
+    <a id="at_form_submit_alt" href="#" title="" class="{{submitDisabled}} pagearrow-wrapper">
+      NEXT
+      <div class="arrow-line arrow-line-right"></div>
+      <div class="arrow arrow-right"></div>
+      <div class="cover-slide slide-right"></div>
+    </a>
+  </div>
+</template>
